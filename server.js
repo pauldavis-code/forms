@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("path");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -17,13 +16,18 @@ if (process.env.NODE_ENV === "production") {
 const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/forms");
 
-// Session
+// Passport and Session
+const passport = require("passport")
 const session = require("express-session");
 app.use(
   session({
     secret: "terrible-string",
+    resave: false,
+    saveUninitialized: false
   })
-)
+);
+app.use(passport.initialize())
+app.use(passport.session())
 
 // Define API routes here
 const routes = require("./routes")

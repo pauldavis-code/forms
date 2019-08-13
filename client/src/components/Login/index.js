@@ -5,10 +5,17 @@ import { Input } from "./../Form"
 import { SubmitBtn } from "./../Button"
 
 class Login extends Component {
-  state = {
-    username: "",
-    password: "",
-    redirectTo: null
+  constructor() {
+    super()
+    this.state = {
+      username: "",
+      password: "",
+      redirectTo: null
+    };
+  };
+
+  componentDidMount() {
+
   }
 
   handleInputChange = event => {
@@ -26,18 +33,19 @@ class Login extends Component {
         password: this.state.password
       })
       .then(res => { 
-        console.log("response: " + res.data)
-        if (!Response.data.errmdg) {
-          this.setState({
-            username: "",
-            password: "",
-            redirectTo: "/login"
-          });
-        } else {
-          console.log("error")
-        }
+        // console.log("response: " + res.data)
+        this.setState({
+          username: "",
+          password: "",
+          redirectTo: "/dashboard"
+        });
+        this.props.updateUser({
+          loggedIn: true,
+          username: res.data.username
+        })
+        console.log(res)
       }).catch(error => {
-        console.log("sign up error: " + error)
+        console.log("log in error: " + error)
       })
     }
   }

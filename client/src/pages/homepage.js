@@ -1,8 +1,9 @@
 import React from "react";
 
-import Signup  from "../components/Signup";
+import Signup from "../components/Signup";
+import Login from "../components/Login"
 
-function Homepage() {
+const Homepage = (props) => {
 
   return(
     <div>
@@ -10,6 +11,9 @@ function Homepage() {
 
       <div className="row mt-4">
         <Signup />
+        <Login 
+          updateUser={props.updateUser}
+        />
       </div>
     </div>
   );

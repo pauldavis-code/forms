@@ -1,9 +1,12 @@
-import React from "react";
+import React, { Component } from "react";
 
-function Dashboard(props) {
-  return(
-    <h1> hello! </h1>
-  )
+class Dashboard extends Component {
+
+  render() {
+    return(
+      <h1> hello, {this.props.name}! </h1>
+    )
+  }
 }
 
 export default Dashboard;
