@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import API from "./../../util/user/API";
+import APIUser from "./../../util/user/API";
 
 import { Input } from "./../Form"
 import { SubmitBtn } from "./../Button"
@@ -20,7 +20,7 @@ class Signup extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if(this.state.username.length > 5) {
-      API.createNewUser({
+      APIUser.createNewUser({
         username: this.state.username,
         password: this.state.password
       })

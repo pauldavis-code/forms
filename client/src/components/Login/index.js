@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import API from "./../../util/user/API";
+import APIUser from "./../../util/user/API";
+import { Redirect } from "react-router-dom";
 
 import { Input } from "./../Form"
 import { SubmitBtn } from "./../Button"
@@ -10,13 +11,9 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      redirectTo: null
+      id: "",
     };
   };
-
-  componentDidMount() {
-
-  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -28,22 +25,24 @@ class Login extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if(this.state.username.length > 5) {
-      API.findCurrentUser({
+      APIUser.findCurrentUser({
         username: this.state.username,
         password: this.state.password
       })
-      .then(res => { 
-        // console.log("response: " + res.data)
+      .then(res => {
+        console.log("Logged in")
+        console.log("response: " + res.data.id)
         this.setState({
           username: "",
           password: "",
-          redirectTo: "/dashboard"
+          id: res.data.id
         });
         this.props.updateUser({
           loggedIn: true,
-          username: res.data.username
+          username: res.data.username,
+          id: res.data.id
         })
-        console.log(res)
+        // console.log(res)
       }).catch(error => {
         console.log("log in error: " + error)
       })
@@ -51,31 +50,36 @@ class Login extends Component {
   }
 
   render() {
-    return(
-      <div className="col-6">
-        <h3>or Login</h3>
-        <Input 
-          value={this.state.username}
-          onChange={this.handleInputChange}
-          name="username"
-          placeholder="Enter your username"
-        />
+    if (this.state.id) {
+      console.log("redirect")
+      return <Redirect to={{ pathname: "/dashboard/" + this.state.id}} />
+    } else {
+      return(
+        <div className="col-6">
+          <h3>or Login</h3>
+          <Input 
+            value={this.state.username}
+            onChange={this.handleInputChange}
+            name="username"
+            placeholder="Enter your username"
+          />
 
-        <Input 
-          value={this.state.password}
-          onChange={this.handleInputChange}
-          name="password"
-          placeholder="Enter your password"
-          type="password"
-        />
+          <Input 
+            value={this.state.password}
+            onChange={this.handleInputChange}
+            name="password"
+            placeholder="Enter your password"
+            type="password"
+          />
 
-        <SubmitBtn 
-          type="submit" 
-          onClick={this.handleFormSubmit}>
-            Submit Form
-        </SubmitBtn>
-      </div>
-    );
+          <SubmitBtn 
+            type="submit" 
+            onClick={this.handleFormSubmit}>
+              Submit Form
+          </SubmitBtn>
+        </div>
+      );
+    }
   };
 };
 

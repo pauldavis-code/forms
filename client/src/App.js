@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, } from "react-router-dom";
+import {Route} from "react-router-dom";
 
 import Homepage from "./pages/homepage";
 import Dashboard from "./pages/dashboard";
@@ -12,7 +12,8 @@ class App extends Component {
     super()
     this.state = {
       isLoggedIn: false,
-      username: null
+      username: null,
+      id: null
     };
   };
 
@@ -21,21 +22,22 @@ class App extends Component {
   }
 
   getUser() {
-    axios.get('/api/user').then(response => {
+    axios.get('/api/users/find').then(response => {
       console.log('Get user response: ')
-      console.log(response.data)
+      // console.log(response.data)
       if (response.data.user) {
         console.log('Get User: There is a user saved in the server session: ')
-
         this.setState({
-          loggedIn: true,
-          username: response.data.user.username
+          isLoggedIn: true,
+          username: response.data.user.username,
+          id: response.data.user._id
         })
       } else {
         console.log('Get user: no user');
         this.setState({
-          loggedIn: false,
-          username: null
+          isLoggedIn: false,
+          username: null,
+          id: null
         })
       }
     })
@@ -48,20 +50,22 @@ class App extends Component {
 
 
   render() {
-    return (
-      <div>
-        <Navbar state={this.state.isLoggedIn} updateUser={this.updateUser}/>
-        <div className="container-fluid">
-          <Router>
+      return (
+        <div>
+          <Navbar state={this.state.isLoggedIn} updateUser={this.updateUser}/>
+          <div className="container-fluid">
             <Route 
-              exact path={ () => "/"}
-              render={ () => this.state.isLoggedIn ? <Dashboard name={this.state.username}/> : <Homepage updateUser={this.updateUser}/>}
+              exact path="/"
+              render={ (props) => <Homepage isLoggedIn={this.state.isLoggedIn} updateUser={this.updateUser} id={this.state.id}/>}
             />
-          </Router>
+            <Route 
+              exact path="/dashboard/:id"
+              render={ () => <Dashboard isLoggedIn={this.state.isLoggedIn} username={this.state.username} id={this.state.id}/> }
+            />
+          </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
 }
 
 export default App;

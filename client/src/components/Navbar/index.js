@@ -7,7 +7,7 @@ class Navbar extends Component {
 
   logOutButton() {
     if (!this.props.state) {
-      return <button type="button" class="btn btn-primary float-right" onClick={this.logout}>Log Out</button>
+      return <button type="button" className="btn btn-primary float-right" onClick={this.logout}>Log Out</button>
     }
   }
 
@@ -31,8 +31,8 @@ class Navbar extends Component {
 
   render() {
     return(
-      <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1">Navbar</span>
+      <nav className="navbar navbar-light bg-light">
+        <span className="navbar-brand mb-0 h1">Navbar</span>
         {this.logOutButton()}
       </nav>
     )
