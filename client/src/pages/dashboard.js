@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import { Redirect } from "react-router-dom";
 
-import APIUser from "./../util/user/API"
+import APIForms from "./../util/forms/API"
 
 class Dashboard extends Component {
   constructor(props) {
@@ -23,9 +23,9 @@ class Dashboard extends Component {
 
   
   findForms = (id) => {
-    APIUser.findFormIDs({id: id})
+    APIForms.findUsersForms({id: id})
     .then(res => {
-      // console.log(res)
+      console.log(res.data)
       this.setState({
         ownedForms: res.data.owned,
         borrowedForms: res.data.borrowed,
@@ -45,11 +45,11 @@ class Dashboard extends Component {
           <div className="row">
             <div className="col-6">
               <h2>Owned Forms</h2>
-                { this.state.ownedForms.map(forms => <h3 key={forms.id}>{forms.id}</h3>) }
+                { this.state.ownedForms.map(forms => <h3 key={forms._id}>{forms.form_title}</h3>) }
             </div>
             <div className="col-6">
               <h2>Borrowed Forms</h2>
-              { this.state.borrowedForms.map(forms => <h3 key={forms}>{forms}</h3>) }
+              { this.state.borrowedForms.map(forms => <h3 key={forms._id}>{forms.form_title}</h3>) }
             </div>
           </div>
         ) : ( 
