@@ -52,7 +52,7 @@ class Login extends Component {
   render() {
     if (this.state.id) {
       console.log("redirect")
-      return <Redirect to={{ pathname: "/dashboard/" + this.state.id}} />
+      return <Redirect to={{ pathname: "/dashboard/"}} />
     } else {
       return(
         <div className="col-6">

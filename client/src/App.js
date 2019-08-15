@@ -48,7 +48,6 @@ class App extends Component {
     console.log("logged in as: " + this.state.username)
   }
 
-
   render() {
       return (
         <div>
@@ -56,10 +55,10 @@ class App extends Component {
           <div className="container-fluid">
             <Route 
               exact path="/"
-              render={ (props) => <Homepage isLoggedIn={this.state.isLoggedIn} updateUser={this.updateUser} id={this.state.id}/>}
+              render={ (props) => <Homepage isLoggedIn={this.state.isLoggedIn} updateUser={this.updateUser} id={this.state.id}/>} 
             />
             <Route 
-              exact path="/dashboard/:id"
+              exact path="/dashboard/"
               render={ () => <Dashboard isLoggedIn={this.state.isLoggedIn} username={this.state.username} id={this.state.id}/> }
             />
           </div>

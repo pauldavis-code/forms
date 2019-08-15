@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 // import { Redirect } from "react-router-dom";
 
+import { Card } from "./../components/Card"
+
 import APIForms from "./../util/forms/API"
 
 class Dashboard extends Component {
@@ -17,10 +19,13 @@ class Dashboard extends Component {
   componentDidUpdate() {
     console.log(this.props.id)
     if (this.state.loaded === false) {
-      this.findForms(this.props.id)
+      if (this.props.location) {
+        this.findForms(this.props.location.state.id)
+      } else {
+        this.findForms(this.props.id)
+      }
     }
   }
-
   
   findForms = (id) => {
     APIForms.findUsersForms({id: id})
@@ -45,7 +50,13 @@ class Dashboard extends Component {
           <div className="row">
             <div className="col-6">
               <h2>Owned Forms</h2>
-                { this.state.ownedForms.map(forms => <h3 key={forms._id}>{forms.form_title}</h3>) }
+              <div className="row">
+
+                { this.state.ownedForms.map(forms => 
+                { return <Card title={forms.form_title} id={forms._id} key={forms._id}/> }
+                )}
+
+              </div>
             </div>
             <div className="col-6">
               <h2>Borrowed Forms</h2>
