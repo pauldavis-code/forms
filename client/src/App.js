@@ -3,9 +3,11 @@ import {Route} from "react-router-dom";
 
 import Homepage from "./pages/homepage";
 import Dashboard from "./pages/dashboard";
-import Navbar from "./components/Navbar"
+import Navbar from "./components/Navbar";
+import FormDisplay from "./pages/formdisplay";
 
-import axios from "axios";
+import APIUser from "./util/user/API";
+import APIForms from "./util/forms/API";
 
 class App extends Component {
   constructor() {
@@ -22,30 +24,38 @@ class App extends Component {
   }
 
   getUser() {
-    axios.get('/api/users/find').then(response => {
-      console.log('Get user response: ')
-      // console.log(response.data)
-      if (response.data.user) {
-        console.log('Get User: There is a user saved in the server session: ')
-        this.setState({
-          isLoggedIn: true,
-          username: response.data.user.username,
-          id: response.data.user._id
-        })
-      } else {
-        console.log('Get user: no user');
-        this.setState({
-          isLoggedIn: false,
-          username: null,
-          id: null
-        })
-      }
-    })
+    APIUser.getUser()
+      .then(res => {
+        if (res.data.user) {
+          console.log('Get User: There is a user saved in the server session: ')
+          console.log(res.data.user)
+          this.setState({
+            isLoggedIn: true,
+            username: res.data.user.username,
+            id: res.data.user._id
+          })
+        } else {
+          console.log('Get user: no user');
+          this.setState({
+            isLoggedIn: false,
+            username: null,
+            id: null
+          })
+        }
+      })
   }
 
   updateUser = (userObj) => {
     this.setState(userObj)
     console.log("logged in as: " + this.state.username)
+  }
+
+  findForm = (id) => {
+    APIForms.findOneForm({id: id})
+      .then(res => {
+        window.location = ("/form/" + id)
+        console.log(res)
+      })
   }
 
   render() {
@@ -59,7 +69,11 @@ class App extends Component {
             />
             <Route 
               exact path="/dashboard/"
-              render={ () => <Dashboard isLoggedIn={this.state.isLoggedIn} username={this.state.username} id={this.state.id}/> }
+              render={ () => <Dashboard isLoggedIn={this.state.isLoggedIn} findForm={this.findForm}/> }
+            />
+            <Route 
+              exact path="/form/:id"
+              render={() => <FormDisplay />}
             />
           </div>
         </div>

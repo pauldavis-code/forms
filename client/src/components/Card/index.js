@@ -4,6 +4,7 @@ import React from "react";
 import doc from "./doc.jpg"
 
 export function Card(props) {
+
   return(
     <div className="col-md-6">
       <div className="card mb-4">
@@ -11,7 +12,7 @@ export function Card(props) {
         <div className="card-body">
           <h5 className="card-title">{props.title}</h5>
         </div>
-        <a href={"/form/" + props.id} className="btn btn-primary ">Edit Document</a>
+          <button href={"/form/" + props.id} onClick={() => props.findForm(props.id)} className="btn btn-primary">Edit</button>
       </div>
     </div>
   )

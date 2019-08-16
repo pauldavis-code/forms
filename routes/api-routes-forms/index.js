@@ -31,6 +31,14 @@ router.post("/find", (req, res) => {
 
       })
   }
+
+  router.post("/findone", (req, res) => {
+    db.Forms.findById(req.body.id)
+      .then(formData => {
+        console.log(formData)
+        res.send(formData)
+      })
+  })
   
 })
 
