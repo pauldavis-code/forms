@@ -10,7 +10,7 @@ router.post("/add", (req, res) => {
     })
 })
 
-router.post("/find", (req, res) => {
+router.post("/findall", (req, res) => {
   if (req.body.id) {
     db.Forms.find({$or: [{form_owner: req.body.id}, {form_borrower: req.body.id}]})
       .then(foundForms => {
@@ -35,7 +35,7 @@ router.post("/find", (req, res) => {
   router.post("/findone", (req, res) => {
     db.Forms.findById(req.body.id)
       .then(formData => {
-        console.log(formData)
+        // console.log(formData)
         res.send(formData)
       })
   })

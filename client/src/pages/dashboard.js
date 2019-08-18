@@ -15,7 +15,7 @@ class Dashboard extends Component {
       ownedForms: null,
       borrowedForms: null,
       isLoggedIn: false,
-      redirect: null
+      selectedForm: null
     }
     this.getUser()
   }
@@ -65,7 +65,7 @@ class Dashboard extends Component {
                 <div className="row">
 
                   { this.state.ownedForms.map(forms => 
-                  { return <Card title={forms.form_title} id={forms._id} key={forms._id} findForm={this.props.findForm}/> }
+                  { return <Card title={forms.form_title} id={forms._id} key={forms._id} /> }
                   )}
 
                 </div>

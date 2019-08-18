@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Link } from "react-router-dom"
 // import "./../../styles/Card.css"
 import doc from "./doc.jpg"
 
@@ -12,7 +13,9 @@ export function Card(props) {
         <div className="card-body">
           <h5 className="card-title">{props.title}</h5>
         </div>
-          <button href={"/form/" + props.id} onClick={() => props.findForm(props.id)} className="btn btn-primary">Edit</button>
+        <Link to={"/form/" + props.id}>
+          <button className="btn btn-primary">Edit</button>
+        </Link>
       </div>
     </div>
   )

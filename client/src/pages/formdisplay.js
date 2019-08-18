@@ -1,36 +1,64 @@
 import React, { Component } from "react";
 
-import APIUser from "./../util/user/API";
+import APIForms from "./../util/forms/API";
+
+import { Subheading } from "./../components/Subheading";
+import { Input } from "./../components/Input";
+import { BubbleSelect } from "./../components/BubbleSelect"
 
 class FormDisplay extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      isLoggedIn: false,
-      id: null
+      form: null,
     }
-    this.getUser()
   }
 
-  getUser() {
-    APIUser.getUser()
-    .then(res => {
-      if (res.data.user) {
-        console.log('Get User: There is a user saved in the server session: ')
-        console.log(res.data.user)
+  componentDidMount() {
+    this.fetchForm(this.props.id)
+  }
+
+  fetchForm = (formID) => {
+    APIForms.findOneForm({id: formID})
+      .then(res => {
+        // console.log(res.data)
         this.setState({
-          isLoggedIn: true,
-          id: res.data.user._id,
+          form: {
+            title: res.data.form_title,
+            contents: res.data.form_contents
+          }
         })
-      } else {
-        console.log('Get user: no user');
-      }
-    })
+      })
   }
 
   render() {
     return(
-      <h1>form</h1>
+      <div>
+
+        {this.state.form ? <h1>{this.state.form.title}</h1> : <h1>No Title</h1>}
+
+        { this.state.form ?
+        this.state.form.contents.map((section, i) => {
+          // console.log(JSON.stringify(Object.keys(section)))
+          switch (JSON.stringify(Object.keys(section))) {
+            case '["sub_heading"]':
+              // console.log("hit");
+              return <Subheading text={section.sub_heading.text} key={i}/>;
+            case '["input"]':
+              // console.log("hit");
+              return <Input text={section.input.text} key={i}/>;
+            case '["bubble_select"]':
+              return section.bubble_select.text.map((text, option) => {
+                return <BubbleSelect text={text} set={i} key={i + "." + option} option={option}/>
+              })
+            default: 
+              console.log("none")
+            }
+            return console.log("loaded")
+
+          }
+          ) : console.log() }
+      </div>
     )
   }
 }

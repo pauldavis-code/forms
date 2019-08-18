@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar";
 import FormDisplay from "./pages/formdisplay";
 
 import APIUser from "./util/user/API";
-import APIForms from "./util/forms/API";
+// import APIForms from "./util/forms/API";
 
 class App extends Component {
   constructor() {
@@ -15,7 +15,8 @@ class App extends Component {
     this.state = {
       isLoggedIn: false,
       username: null,
-      id: null
+      id: null,
+      formID: null
     };
   };
 
@@ -50,14 +51,6 @@ class App extends Component {
     console.log("logged in as: " + this.state.username)
   }
 
-  findForm = (id) => {
-    APIForms.findOneForm({id: id})
-      .then(res => {
-        window.location = ("/form/" + id)
-        console.log(res)
-      })
-  }
-
   render() {
       return (
         <div>
@@ -69,11 +62,11 @@ class App extends Component {
             />
             <Route 
               exact path="/dashboard/"
-              render={ () => <Dashboard isLoggedIn={this.state.isLoggedIn} findForm={this.findForm}/> }
+              render={ () => <Dashboard isLoggedIn={this.state.isLoggedIn} /> }
             />
             <Route 
               exact path="/form/:id"
-              render={() => <FormDisplay />}
+              render={(props) => <FormDisplay id={props.match.params.id}/>}
             />
           </div>
         </div>
