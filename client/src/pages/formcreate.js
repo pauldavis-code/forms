@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 
 import { SubHeadingModal } from "./../components/Modal/SubHeadingModal";
-import {  InputModal } from "./../components/Modal/InputModal";
-import { BubbleSelectModal } from "./../components/Modal/BubbleSelectModal"
-
+import { InputModal } from "./../components/Modal/InputModal";
+import { BubbleSelectModal } from "./../components/Modal/BubbleSelectModal";
+import { TitleModal } from "../components/Modal/TitleModal";
 
 import { ButtonDropdown } from "./../components/Button-Dropdown";
+import { Button } from "./../components/Button"
 import { Subheading } from "./../components/Subheading";
 import { Input } from "./../components/Input-Sizeable";
 import { BubbleSelect } from "./../components/BubbleSelect";
-import { X } from "./../components/x"
+import { X } from "./../components/x";
+
+import APIForms from "./../util/forms/API";
 
 class FormCreate extends Component {
   constructor(props) {
@@ -20,9 +23,11 @@ class FormCreate extends Component {
       input: "",
       bubbleSelectTitle: "",
       bubbleSelectOptions: "",
+      formTitle: "",
       form: null
     }
   }
+
 
   getType = type => {
     this.setState({
@@ -95,6 +100,19 @@ class FormCreate extends Component {
     })
   }
 
+  handleFormSubmit = event => {
+    event.preventDefault();
+    let id = this.props.id
+    APIForms.createNewForm({
+      form_title: this.state.formTitle,
+      form_contents: this.state.form,
+      form_owner: this.props.id
+    })
+    .then(res => {
+      console.log(res)
+    })
+  }
+
   render() {
 
     const form = () => this.state.form ? this.state.form.map((field, i) => {
@@ -123,8 +141,7 @@ class FormCreate extends Component {
           console.log("none")
         }
         return console.log("loaded")
-      }
-      ) : console.log()
+    }) : console.log()
 
     return(
       <div>
@@ -134,12 +151,28 @@ class FormCreate extends Component {
           { form() }
         </div>
 
+        <TitleModal 
+          text="Add Title"
+          handleInputChange={this.handleInputChange}
+          handleFormSubmit={this.handleFormSubmit}
+          value={this.state.formTitle}
+          addField={this.addField}
+        />
+
         <ButtonDropdown 
           aText="Sub Heading"
           bText="User Input"
           cText="Bubble Select"
           getType={this.getType}
         />
+
+        <Button
+          className="btn btn-primary ml-2"
+          onClick={this.addTitleField}
+          submit={this.handleFormSubmit}
+          data-toggle={"modal"}
+          data-target={"#titleModal"}
+        >Save and complete form</Button>
 
         <SubHeadingModal 
           text="Add Sub Heading Field"

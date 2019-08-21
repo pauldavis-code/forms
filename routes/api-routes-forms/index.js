@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require("../../models");
 
 router.post("/add", (req, res) => {
-  db.Forms.create({form_owner: req.body.id, form_title: "test"})
+  db.FormTemplate.create({form_owner: req.body.id, form_title: "test"})
     .then(res => {
       console.log(res)
     })
@@ -12,34 +12,44 @@ router.post("/add", (req, res) => {
 
 router.post("/findall", (req, res) => {
   if (req.body.id) {
-    db.Forms.find({$or: [{form_owner: req.body.id}, {form_borrower: req.body.id}]})
-      .then(foundForms => {
-        let usersFoundForms = {
-          owned: [],
-          borrowed: []
-        }
-        foundForms.forEach((form) => {
-          if (form.form_owner === req.body.id) {
-            usersFoundForms.owned.push(form)
-          } else {
-            usersFoundForms.borrowed.push(form)
-          }
-        })
-        res.json(usersFoundForms)
-        // console.log("owned forms: " + usersFoundForms.owned)
-        // console.log("borrowed forms: " + usersFoundForms.borrowed)
-
+    db.FormTemplate.find({$or: [{form_owner: req.body.id}, {form_borrower: req.body.id}]})
+      .then(foundTemplateForms => {
+        db.FormCompleted.find({form_owner: req.body.id})
+          .then(foundCompletedForms => {
+            let usersFoundForms = {
+              templates: [],
+              completed: []
+            }
+            foundTemplateForms.forEach((form) => {
+              usersFoundForms.templates.push(form)
+            })
+            foundCompletedForms.forEach((form) => {
+              usersFoundForms.completed.push(form)
+            })
+            res.json(usersFoundForms)
+          })
       })
   }
-
-  router.post("/findone", (req, res) => {
-    db.Forms.findById(req.body.id)
-      .then(formData => {
-        // console.log(formData)
-        res.send(formData)
-      })
-  })
-  
 })
+
+router.post("/findone", (req, res) => {
+  db.FormTemplate.findById(req.body.id)
+    .then(formData => {
+      // console.log(formData)
+      res.send(formData)
+    })
+})
+
+router.post("/createnew", (req, res) => {
+  db.FormTemplate
+    .create(req.body)
+})
+
+router.post("/complete", (req, res) => {
+  db.FormCompleted
+    .create(req.body)
+  console.log(req.body)
+})
+  
 
 module.exports = router;

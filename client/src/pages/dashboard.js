@@ -13,10 +13,10 @@ class Dashboard extends Component {
     this.state = {
       id: null,
       username: null,
-      ownedForms: null,
-      borrowedForms: null,
+      templateForms: null,
       isLoggedIn: false,
-      selectedForm: null
+      selectedForm: null,
+      completedForms: null
     }
   }
 
@@ -47,18 +47,28 @@ class Dashboard extends Component {
   findForms = (id) => {
     APIForms.findUsersForms({id: id})
     .then(res => {
-      // console.log(res.data)
       this.setState({
-        ownedForms: res.data.owned,
-        borrowedForms: res.data.borrowed,
-        loaded: true
+        templateForms: res.data.templates,
+        completedForms: res.data.completed
       })
-      // console.log(this.state.ownedForms)
     })
     .catch(err => console.log("ERROR: " + err ))
   }
 
   render() {
+    let templates = this.state.templateForms ? (
+      this.state.templateForms.map(forms => { return (
+        <Card title={forms.form_title} id={forms._id} key={forms._id}/> 
+      ) 
+    })) : null
+
+    let completed = this.state.completedForms ? (
+      this.state.completedForms.map(forms => { console.log(forms.form_title)
+        return (
+        <h4>{forms.form_title}</h4>
+      )})
+    ) : null
+
     return(
       <div>
         <h1> hello, {this.state.username} ({this.state.id})! </h1>
@@ -67,30 +77,20 @@ class Dashboard extends Component {
           <Button className="btn btn-primary mt-2 mb-2">Create New Form</Button>
         </Link>
 
-        { this.state.ownedForms ? ( 
-          <div className="row">
-            <div className="col-6">
-              <h2>Owned Forms</h2>
-              <div className="row">
-
-                { this.state.ownedForms.map(forms => 
-                { return <Card title={forms.form_title} id={forms._id} key={forms._id} /> }
-                )}
-
-              </div>
-              
-            </div>
-            <div className="col-6">
-              <h2>Borrowed Forms</h2>
-              { this.state.borrowedForms.map(forms => <h3 key={forms._id}>{forms.form_title}</h3>) }
-            </div>
+        <div className="row">
+          <div className="col-md-8">
+            <h2>Templated forms</h2>
+            {templates}
           </div>
-        ) : ( 
-          <h3>no forms</h3> )}
-      </div>
-    )
-  }
 
+          <div className="col-md-4">
+            <h2>completed forms</h2>
+            {completed}
+          </div>
+
+        </div>
+      </div> )
+  }
 }
 
 export default Dashboard;

@@ -68,7 +68,7 @@ class App extends Component {
               />
               <Route 
                 exact path="/form/new"
-                render={(props) => <FormCreate />}
+                render={(props) => <FormCreate id={this.state.id}/>}
               />
               <Route 
                 exact path="/form/:id"

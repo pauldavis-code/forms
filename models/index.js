@@ -1,4 +1,5 @@
 module.exports = {
   User: require("./user"),
-  Forms: require("./forms")
+  FormTemplate: require("./form-template"),
+  FormCompleted: require("./form-completed")
 }
