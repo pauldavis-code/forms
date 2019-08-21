@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import APIUser from "./../../util/user/API";
 
-import { Input } from "./../Form"
-import { SubmitBtn } from "./../Button"
+import { Input } from "./../Input"
+import { Button } from "./../Button"
 
 class Signup extends Component {
   state = {
@@ -50,11 +50,11 @@ class Signup extends Component {
           type="password"
         />
 
-        <SubmitBtn 
+        <Button 
           type="submit" 
           onClick={this.handleFormSubmit}>
             Submit Form
-        </SubmitBtn>
+        </Button>
       </div>
     );
   };

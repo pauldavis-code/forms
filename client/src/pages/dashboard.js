@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-// import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Card } from "./../components/Card"
+import { Button } from "./../components/Button"
 
 import APIUser from "./../util/user/API"
 import APIForms from "./../util/forms/API"
@@ -17,10 +18,15 @@ class Dashboard extends Component {
       isLoggedIn: false,
       selectedForm: null
     }
-    this.getUser()
   }
 
-  getUser() {
+  componentDidMount() {
+    if (!this.state.isLoggedIn) {
+      this.getUser()
+    }
+  }
+
+  getUser = () => {
     APIUser.getUser()
     .then(res => {
       if (res.data.user) {
@@ -53,36 +59,36 @@ class Dashboard extends Component {
   }
 
   render() {
-    // if (this.state.isLoggedIn) {
-      return(
-        <div>
-          <h1> hello, {this.state.username} ({this.state.id})! </h1>
+    return(
+      <div>
+        <h1> hello, {this.state.username} ({this.state.id})! </h1>
 
-          { this.state.ownedForms ? ( 
-            <div className="row">
-              <div className="col-6">
-                <h2>Owned Forms</h2>
-                <div className="row">
+        <Link to={"/form/new"}>
+          <Button className="btn btn-primary mt-2 mb-2">Create New Form</Button>
+        </Link>
 
-                  { this.state.ownedForms.map(forms => 
-                  { return <Card title={forms.form_title} id={forms._id} key={forms._id} /> }
-                  )}
+        { this.state.ownedForms ? ( 
+          <div className="row">
+            <div className="col-6">
+              <h2>Owned Forms</h2>
+              <div className="row">
 
-                </div>
-                
+                { this.state.ownedForms.map(forms => 
+                { return <Card title={forms.form_title} id={forms._id} key={forms._id} /> }
+                )}
+
               </div>
-              <div className="col-6">
-                <h2>Borrowed Forms</h2>
-                { this.state.borrowedForms.map(forms => <h3 key={forms._id}>{forms.form_title}</h3>) }
-              </div>
+              
             </div>
-          ) : ( 
-            <h3>no forms</h3> )}
-        </div>
-      )
-    // } else {
-    //   return <Redirect to={{pathname: "/"}} />
-    // }
+            <div className="col-6">
+              <h2>Borrowed Forms</h2>
+              { this.state.borrowedForms.map(forms => <h3 key={forms._id}>{forms.form_title}</h3>) }
+            </div>
+          </div>
+        ) : ( 
+          <h3>no forms</h3> )}
+      </div>
+    )
   }
 
 }

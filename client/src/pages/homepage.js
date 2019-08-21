@@ -1,25 +1,34 @@
 import React, { Component } from "react";
-// import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import Signup from "../components/Signup";
 import Login from "../components/Login"
 
 class Homepage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isLoggedIn: this.props.isLoggedIn
+    }
+    console.log(this.state.isLoggedIn)
+  }
 
   render() {
-    return(
-      <div>
-        <h1>Welcome to the homepage!</h1>
+    console.log("render")
 
-        <div className="row mt-4">
-          <Signup />
-          <Login 
-            updateUser={this.props.updateUser}
-          />
+      return(
+        <div>
+          <h1>Welcome to the homepage!</h1>
+
+          <div className="row mt-4">
+            <Signup />
+            <Login 
+              updateUser={this.props.updateUser}
+            />
+          </div>
         </div>
-      </div>
-    );
-  };
+      );
+    };
 };
 
 export default Homepage;

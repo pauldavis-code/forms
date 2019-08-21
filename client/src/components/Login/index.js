@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import APIUser from "./../../util/user/API";
 import { Redirect } from "react-router-dom";
 
-import { Input } from "./../Form"
-import { SubmitBtn } from "./../Button"
+import { Input } from "./../Input"
+import { Button } from "./../Button"
 
 class Login extends Component {
   constructor() {
@@ -42,16 +42,14 @@ class Login extends Component {
           username: res.data.username,
           id: res.data.id
         })
-        // console.log(res)
       }).catch(error => {
-        console.log("log in error: " + error)
+        return console.log("log in error: " + error)
       })
     }
   }
 
   render() {
     if (this.state.id) {
-      console.log("redirect")
       return <Redirect to={{ pathname: "/dashboard/"}} />
     } else {
       return(
@@ -72,14 +70,15 @@ class Login extends Component {
             type="password"
           />
 
-          <SubmitBtn 
-            type="submit" 
-            onClick={this.handleFormSubmit}>
+            <Button
+              type="submit" 
+              onClick={this.handleFormSubmit}
+            >
               Submit Form
-          </SubmitBtn>
+            </Button>
         </div>
       );
-    }
+    };
   };
 };
 

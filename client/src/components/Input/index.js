@@ -1,12 +1,9 @@
 import React from "react";
 
 export function Input(props) {
-  return (
-    <div className="input-group" >
-      <div className="input-group-prepend">
-        <span className="input-group-text">{props.text}</span>
-      </div>
-      <textarea className="form-control" aria-label="With textarea"></textarea>
-  </div>
+  return(
+    <div className="form-group mt-2">
+      <input className="form-control" {...props}></input>
+    </div>
   )
 }

@@ -4,22 +4,30 @@ import axios from "axios";
 
 
 class Navbar extends Component {
+  // constructor(props) {
+  //   super(props)
+  // }
 
-  logOutButton() {
-    if (!this.props.state) {
+  componentWillReceiveProps() {
+    this.logOutButton()
+  }
+
+  logOutButton = ()  => {
+    if (this.props.state) {
       return <button type="button" className="btn btn-primary float-right" onClick={this.logout}>Log Out</button>
     }
   }
 
-  logout(event) {
+  logout = (event) => {
     event.preventDefault()
     console.log('logging out')
-    axios.post('/api/user/logout').then(response => {
+    axios.post('/api/users/logout').then(response => {
       console.log(response.data)
       if (response.status === 200) {
         this.props.updateUser({
-          loggedIn: false,
-          username: null
+          isLoggedIn: false,
+          username: null,
+          id: null
         })
       }
     }).catch(error => {

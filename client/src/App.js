@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import {Route} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
 
 import Homepage from "./pages/homepage";
 import Dashboard from "./pages/dashboard";
-import Navbar from "./components/Navbar";
 import FormDisplay from "./pages/formdisplay";
+import FormCreate from "./pages/formcreate"
 
 import APIUser from "./util/user/API";
 // import APIForms from "./util/forms/API";
@@ -15,8 +17,7 @@ class App extends Component {
     this.state = {
       isLoggedIn: false,
       username: null,
-      id: null,
-      formID: null
+      id: null
     };
   };
 
@@ -56,18 +57,24 @@ class App extends Component {
         <div>
           <Navbar state={this.state.isLoggedIn} updateUser={this.updateUser}/>
           <div className="container-fluid">
-            <Route 
-              exact path="/"
-              render={ (props) => <Homepage isLoggedIn={this.state.isLoggedIn} updateUser={this.updateUser} id={this.state.id}/>} 
-            />
-            <Route 
-              exact path="/dashboard/"
-              render={ () => <Dashboard isLoggedIn={this.state.isLoggedIn} /> }
-            />
-            <Route 
-              exact path="/form/:id"
-              render={(props) => <FormDisplay id={props.match.params.id}/>}
-            />
+            <Switch>
+              <Route 
+                exact path="/"
+                render={ (props) => <Homepage isLoggedIn={this.state.isLoggedIn} updateUser={this.updateUser} id={this.state.id}/>} 
+              />
+              <Route 
+                exact path="/dashboard/"
+                render={ () => <Dashboard isLoggedIn={this.state.isLoggedIn} /> }
+              />
+              <Route 
+                exact path="/form/new"
+                render={(props) => <FormCreate />}
+              />
+              <Route 
+                exact path="/form/:id"
+                render={(props) => <FormDisplay id={props.match.params.id}/>}
+              />
+            </Switch>
           </div>
         </div>
       );
