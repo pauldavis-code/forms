@@ -41,7 +41,7 @@ router.post('/logout', (req, res) => {
 
 router.get('/find', (req, res, next) => {
   // console.log('===== user!!======')
-  console.log("req.user: " + typeof req.user._id)
+  console.log("req.user: " + req.user._id)
   if (req.user !== undefined) {
     console.log("authenticated")
     res.status(200)

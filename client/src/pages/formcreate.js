@@ -37,9 +37,9 @@ class FormCreate extends Component {
     APIUser.getUser()
       .then(res => {
         this.setState({
-          userID: res.data.user._id
+          userID: res.data.user._id.toString()
         })
-        console.log(typeof this.state.userID)
+        console.log(this.state.userID)
       })
   }
 
