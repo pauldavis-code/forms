@@ -33,7 +33,7 @@ router.post("/findall", (req, res) => {
 })
 
 router.post("/findone", (req, res) => {
-  db.FormTemplate.findById(req.body.id)
+  db.FormTemplate.find({id: {$oid: req.body.id}})
     .then(formData => {
       // console.log(formData)
       res.send(formData)
