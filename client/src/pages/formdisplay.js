@@ -96,7 +96,7 @@ class FormDisplay extends Component {
             }
           }): console.log() }
 
-          <Button className="btn btn-primary mt-2" onClick={this.handleFormSubmit}>Submit</Button>
+          <Button className="btn btn-dark mt-2" onClick={this.handleFormSubmit}>Submit</Button>
       </div>
     )
   }
