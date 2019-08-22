@@ -45,7 +45,7 @@ router.get('/find', (req, res, next) => {
   if (req.user !== undefined) {
     console.log("authenticated")
     res.status(200)
-    res.json({user: req.user})
+    res.json({user: req.user}).send()
   } else {
     res.status(401).send()
     console.log("not authenticated")

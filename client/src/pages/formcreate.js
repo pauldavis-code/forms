@@ -30,26 +30,22 @@ class FormCreate extends Component {
       form: null,
       userID: null
     }
+  }
+
+  componentDidMount() {
     console.log("Component Mounted")
+    this.getUser()
+  }
+
+  getUser = () => {
     APIUser.getUser()
       .then(res => {
         this.setState({
           userID: res.data.user._id.toString()
         })
-        console.log("FROM CONSTRUCTOR: " + this.state.userID)
+        console.log(this.state.userID)
       })
   }
-
-  // componentDidMount() {
-  //   console.log("Component Mounted")
-  //   APIUser.getUser()
-  //     .then(res => {
-  //       this.setState({
-  //         userID: res.data.user._id.toString()
-  //       })
-  //       console.log(this.state.userID)
-  //     })
-  // }
 
   getType = type => {
     this.setState({
