@@ -27,10 +27,20 @@ class FormCreate extends Component {
       bubbleSelectTitle: "",
       bubbleSelectOptions: "",
       formTitle: "",
-      form: null
+      form: null,
+      userID: null
     }
   }
 
+  componentDidMount() {
+    APIUser.getUser()
+      .then(res => {
+        this.setState({
+          userID: res.data.user._id
+        })
+        console.log(this.state.userID)
+      })
+  }
 
   getType = type => {
     this.setState({
@@ -109,17 +119,12 @@ class FormCreate extends Component {
   handleFormSubmit = event => {
     console.log("submitting form")
     event.preventDefault();
-    APIUser.getUser()
+      APIForms.createNewForm({
+        form_title: this.state.formTitle,
+        form_contents: this.state.form,
+        form_owner: this.state.userID
+      })
       .then(res => {
-        console.log(res)
-        APIForms.createNewForm({
-          form_title: this.state.formTitle,
-          form_contents: this.state.form,
-          form_owner: res.data.user._id.toString()
-        })
-        .then(res => {
-        })
-        .catch(err => console.log(err))
       })
       .catch(err => console.log(err))
   }
