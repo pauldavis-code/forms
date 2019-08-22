@@ -110,8 +110,7 @@ class FormCreate extends Component {
     event.preventDefault();
     APIUser.getUser()
       .then(res => {
-        let owner = res.data.user._id.$oid
-        console.log(owner)
+        console.log(res)
         APIForms.createNewForm({
           form_title: this.state.formTitle,
           form_contents: this.state.form,
