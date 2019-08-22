@@ -114,7 +114,7 @@ class FormCreate extends Component {
           form_owner: res.data.user._id
         })
         .then(res => {
-          console.log(res)
+          console.log(res.data.user._id)
         })
       })
   }
