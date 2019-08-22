@@ -120,15 +120,15 @@ class FormCreate extends Component {
   handleFormSubmit = event => {
     console.log("submit")
     event.preventDefault();
-      APIForms.createNewForm({
-        form_title: this.state.formTitle,
-        form_contents: this.state.form,
-        form_owner: this.state.userID
-      })
-      .then(res => {
-      })
-      .catch(err => console.log(err))
-      window.location.href = "/dashboard";
+    APIForms.createNewForm({
+      form_title: this.state.formTitle,
+      form_contents: this.state.form,
+      form_owner: this.state.userID
+    })
+    .then(res => {
+    })
+    .catch(err => console.log(err))
+    window.location.href = "/dashboard";
   }
 
   render() {
@@ -162,7 +162,9 @@ class FormCreate extends Component {
 
     return(
       <div>
-        <h1>Create new form</h1>
+        <div className="text-center">
+          <h1 className="mb-4">Create new form</h1>
+        </div>
 
         <div className="form">
           { form() }
@@ -176,19 +178,21 @@ class FormCreate extends Component {
           addField={this.addField}
         />
 
-        <ButtonDropdown 
-          aText="Sub Heading"
-          bText="User Input"
-          cText="Bubble Select"
-          getType={this.getType}
-        />
+        <div className="text-center">
+          <ButtonDropdown 
+            aText="Sub Heading"
+            bText="User Input"
+            cText="Bubble Select"
+            getType={this.getType}
+          />
 
-        <Button
-          className="btn btn-primary ml-2"
-          onClick={this.retrieveUser}
-          data-toggle={"modal"}
-          data-target={"#titleModal"}
-        >Save and complete form</Button>
+          <Button
+            className="btn btn-dark ml-2"
+            onClick={this.retrieveUser}
+            data-toggle={"modal"}
+            data-target={"#titleModal"}
+          >Save and complete form</Button>
+        </div>
 
         <SubHeadingModal 
           text="Add Sub Heading Field"

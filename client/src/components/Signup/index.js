@@ -33,8 +33,8 @@ class Signup extends Component {
 
   render() {
     return(
-      <div className="col-6">
-        <h3>Make a new account</h3>
+      <div className="col">
+        <h3>Make a <span className="highlight">new account</span></h3>
         <Input 
           value={this.state.username}
           onChange={this.handleInputChange}
@@ -51,10 +51,10 @@ class Signup extends Component {
         />
 
         <Button 
-          className="btn btn-primary"
+          className="btn btn-dark"
           type="submit" 
           onClick={this.handleFormSubmit}>
-            Submit Form
+            Sign up
         </Button>
       </div>
     );

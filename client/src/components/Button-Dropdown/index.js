@@ -5,7 +5,7 @@ import { DropdownItem } from "./../Button-Dropdown/Dropdown-Item"
 export function ButtonDropdown(props) {
   return (
     <div className="btn-group">   
-      <button type="button" className="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button type="button" className="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Add new field..
       </button>
       <div className="dropdown-menu">

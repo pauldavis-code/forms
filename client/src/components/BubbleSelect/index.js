@@ -3,7 +3,7 @@ import React from "react";
 export function BubbleSelect(props) {
   console.log(props.inputs)
   return(
-    <div>
+    <div className="mb-2">
       <h3>{ props.contents.title.text }</h3>
       { props.contents.options.map((options, number) => {
         return (

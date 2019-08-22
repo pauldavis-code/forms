@@ -40,8 +40,8 @@ class Navbar extends Component {
   render() {
     if (this.props)
     return(
-      <nav className="navbar navbar-light bg-light">
-        <span className="navbar-brand mb-0 h1">Navbar</span>
+      <nav className="navbar navbar-dark bg-dark">
+        <span className="navbar-brand mb-0 h1">form(e)</span>
         {this.logOutButton()}
       </nav>
     )

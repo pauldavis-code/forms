@@ -45,8 +45,8 @@ class Login extends Component {
 
   render() {
     return(
-      <div className="col-6">
-        <h3>or Login</h3>
+      <div className="col mb-2">
+        <h3>..or <span className="highlight">Login</span></h3>
         <Input 
           value={this.state.username}
           onChange={this.handleInputChange}
@@ -63,10 +63,10 @@ class Login extends Component {
         />
 
         <Button
-          className="btn btn-primary"
+          className="btn btn-dark"
           onClick={this.handleFormSubmit}
         >
-          Submit Form
+          Login
         </Button>
       </div>
     );

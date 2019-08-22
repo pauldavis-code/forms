@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Card } from "./../components/Card"
 import { Button } from "./../components/Button"
+import { IDModal } from "./../components/Modal/IDModal"
 
 import APIForms from "./../util/forms/API"
 
@@ -46,24 +47,28 @@ class Dashboard extends Component {
     ) : null
       return(
         <div>
-          <h1> hello, {this.props.username} ({this.props.userID})! </h1>
+          <h1> hello, <span className="highlight">{this.props.username}</span> </h1>
 
           <Link to={"/form/new"}>
-            <Button className="btn btn-primary mt-2 mb-2">Create New Form</Button>
+            <Button className="btn btn-dark mt-2 mb-2">Create New Form</Button>
           </Link>
 
           <div className="row">
             <div className="col-md-8">
-              <h2>Templated forms</h2>
-              {templates}
+              <h2>Templated  <span className="highlight">forms</span></h2>
+              <div className="row">
+                {templates}
+                <IDModal />
+              </div>
             </div>
 
             <div className="col-md-4">
-              <h2>completed forms</h2>
+              <h2>completed <span className="highlight">forms</span></h2>
               {completed}
             </div>
 
           </div>
+
         </div> )
   }
 }

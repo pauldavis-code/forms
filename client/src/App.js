@@ -11,6 +11,8 @@ import Portal from "./pages/portal"
 
 import withAuth from "./util/withAuth"
 
+import "./styles/Layout.css"
+
 class App extends Component {
   constructor() {
     super()
@@ -30,40 +32,46 @@ class App extends Component {
     return (
       <div>
         <Navbar state={this.state.isLoggedIn} updateUser={this.updateUser}/>
-        <div className="container-fluid">
-          <Switch>
-            <Route 
-              exact path="/"
-              render={ (props) => <Homepage updateUser={this.updateUser}/>} 
-            />
-            <Route 
-              exact path="/dashboard"
-              component={withAuth(Dashboard)}
-              />)}
-            />
-            <Route 
-              exact path="/form/new"
-              component={withAuth(FormCreate)}
-            />
-            <Route 
-              exact path="/form/:id"
-              // component={withAuth(FormDisplay)} 
-              render={(props) => <FormDisplay id={props.match.params.id} type={"fill"} user={"owner"}/>}
-            />
-            <Route 
-              exact path="/form/guest/:id"
-              render={(props) => <FormDisplay id={props.match.params.id} type={"fill"} user={"guest"}/>}
-            />
-            <Route 
-              exact path="/read/:id"
-              render={(props) => <FormDisplay id={props.match.params.id} type={"read"}/>}
-            />
-            
-            <Route 
-              exact path="/portal"
-              render={() => <Portal />}
-            />
-          </Switch>
+        <div className="row">
+          <div className="col-2 sides"></div>
+          <div className="col-md-8">
+            <div className="container-fluid mt-4">
+              <Switch>
+                <Route 
+                  exact path="/"
+                  render={ (props) => <Homepage updateUser={this.updateUser}/>} 
+                />
+                <Route 
+                  exact path="/dashboard"
+                  component={withAuth(Dashboard)}
+                  />)}
+                />
+                <Route 
+                  exact path="/form/new"
+                  component={withAuth(FormCreate)}
+                />
+                <Route 
+                  exact path="/form/:id"
+                  // component={withAuth(FormDisplay)} 
+                  render={(props) => <FormDisplay id={props.match.params.id} type={"fill"} user={"owner"}/>}
+                />
+                <Route 
+                  exact path="/form/guest/:id"
+                  render={(props) => <FormDisplay id={props.match.params.id} type={"fill"} user={"guest"}/>}
+                />
+                <Route 
+                  exact path="/read/:id"
+                  render={(props) => <FormDisplay id={props.match.params.id} type={"read"}/>}
+                />
+                
+                <Route 
+                  exact path="/portal"
+                  render={() => <Portal />}
+                />
+              </Switch>
+            </div>
+          </div>
+          <div className="col-md-2 sides"></div>
         </div>
       </div>
     );
