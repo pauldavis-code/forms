@@ -15,6 +15,8 @@ import { X } from "./../components/x";
 import APIForms from "./../util/forms/API";
 import APIUser from "./../util/user/API"
 
+const ObjectID = require("mongodb").ObjectID
+
 class FormCreate extends Component {
   constructor(props) {
     super(props);
@@ -108,12 +110,12 @@ class FormCreate extends Component {
     event.preventDefault();
     APIUser.getUser()
       .then(res => {
-        console.log(res.data.user._id)
-        let owner = res.data.user._id
+        let owner = res.data.user._id.$oid
+        console.log(owner)
         APIForms.createNewForm({
           form_title: this.state.formTitle,
           form_contents: this.state.form,
-          form_owner: "asdfasdf"
+          form_owner: res.data.user._id.toString()
         })
         .then(res => {
         })
