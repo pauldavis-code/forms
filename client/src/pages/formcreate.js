@@ -113,7 +113,7 @@ class FormCreate extends Component {
         APIForms.createNewForm({
           form_title: this.state.formTitle,
           form_contents: this.state.form,
-          form_owner: owner
+          form_owner: "asdfasdf"
         })
         .then(res => {
         })
