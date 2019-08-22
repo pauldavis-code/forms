@@ -32,11 +32,6 @@ class FormCreate extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log("Component Mounted")
-    this.getUser()
-  }
-
   getUser = () => {
     APIUser.getUser()
       .then(res => {
@@ -135,7 +130,10 @@ class FormCreate extends Component {
   }
 
   render() {
-
+    if (this.state.userID === null) {
+      this.getUser()
+    }
+    console.log("in redner: " + this.state.userID)
     const form = () => this.state.form ? this.state.form.map((field, i) => {
       console.log(field)
       switch (JSON.stringify(Object.keys(field))) {
