@@ -117,7 +117,9 @@ class FormCreate extends Component {
         })
         .then(res => {
         })
+        .catch(err => console.log(err))
       })
+      .catch(err => console.log(err))
   }
 
   render() {
