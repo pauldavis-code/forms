@@ -99,6 +99,7 @@ class FormCreate extends Component {
   }
 
   retrieveUser = () => {
+    console.log("pressed")
     APIUser.getUser()
       .then(res => {
         this.setState({
