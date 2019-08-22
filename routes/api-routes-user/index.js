@@ -39,7 +39,7 @@ router.post('/logout', (req, res) => {
   }
 });
 
-router.get('/find', (req, res, next) => {
+router.post('/find', (req, res, next) => {
   // console.log('===== user!!======')
   console.log("req.user: " + req.user._id)
   if (req.user !== undefined) {

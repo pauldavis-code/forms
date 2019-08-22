@@ -8,7 +8,7 @@ export default {
     return axios.post("/api/users/login", userData)
   },
   getUser: function() {
-    return axios.get('/api/users/find')
+    return axios.post('/api/users/find')
   },
   findFormIDs: function(userID) {
     console.log("userID: " + userID)
