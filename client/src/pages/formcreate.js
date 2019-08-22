@@ -126,9 +126,9 @@ class FormCreate extends Component {
         form_owner: this.state.userID
       })
       .then(res => {
-        window.location.href = "/dashboard";
       })
       .catch(err => console.log(err))
+      window.location.href = "/dashboard";
   }
 
   render() {
