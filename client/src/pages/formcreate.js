@@ -33,6 +33,7 @@ class FormCreate extends Component {
   }
 
   componentDidMount() {
+    console.log("Component Mounted")
     APIUser.getUser()
       .then(res => {
         this.setState({
@@ -184,8 +185,6 @@ class FormCreate extends Component {
 
         <Button
           className="btn btn-primary ml-2"
-          onClick={this.addTitleField}
-          submit={this.handleFormSubmit}
           data-toggle={"modal"}
           data-target={"#titleModal"}
         >Save and complete form</Button>
