@@ -32,16 +32,6 @@ class FormCreate extends Component {
     }
   }
 
-  getUser = () => {
-    APIUser.getUser()
-      .then(res => {
-        this.setState({
-          userID: res.data.user._id.toString()
-        })
-        console.log(this.state.userID)
-      })
-  }
-
   getType = type => {
     this.setState({
       adding: type
@@ -108,6 +98,16 @@ class FormCreate extends Component {
     })
   }
 
+  retrieveUser = () => {
+    APIUser.getUser()
+      .then(res => {
+        this.setState({
+          userID: res.data.user._id.toString()
+        })
+        console.log(this.state.userID)
+      })
+  }
+
   handleInputChange = event => {
     console.log(this.state)
     const { name, value } = event.target;
@@ -130,10 +130,6 @@ class FormCreate extends Component {
   }
 
   render() {
-    if (this.state.userID === null) {
-      this.getUser()
-    }
-    console.log("in redner: " + this.state.userID)
     const form = () => this.state.form ? this.state.form.map((field, i) => {
       console.log(field)
       switch (JSON.stringify(Object.keys(field))) {
@@ -187,6 +183,7 @@ class FormCreate extends Component {
 
         <Button
           className="btn btn-primary ml-2"
+          onClick={this.retrieveUser}
           data-toggle={"modal"}
           data-target={"#titleModal"}
         >Save and complete form</Button>
