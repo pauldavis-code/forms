@@ -45,7 +45,7 @@ export default function withAuth(ProtectedComponent) {
       }
       return (
         <React.Fragment>
-          <ProtectedComponent username={this.state.user.username} id={this.state.user._id} {...this.props} />
+          <ProtectedComponent username={this.state.user.username} userID={this.state.user._id} {...this.props} />
         </React.Fragment>
       );
     }

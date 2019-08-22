@@ -5,7 +5,6 @@ import { Card } from "./../components/Card"
 import { Button } from "./../components/Button"
 
 import APIForms from "./../util/forms/API"
-import APIUser from "./../util/user/API"
 
 class Dashboard extends Component {
   constructor(props) {
@@ -18,11 +17,11 @@ class Dashboard extends Component {
   }
   
   componentDidMount() {
-    this.findForms(this.props.id)
+    this.findForms(this.props.userID)
   }
   
-  findForms = () => {
-    APIForms.findUsersForms({id: this.props.id})
+  findForms = (id) => {
+    APIForms.findUsersForms({id: id})
     .then(res => {
       this.setState({
         templateForms: res.data.templates,
@@ -46,7 +45,7 @@ class Dashboard extends Component {
     ) : null
       return(
         <div>
-          <h1> hello, {this.props.username} ({this.props.id})! </h1>
+          <h1> hello, {this.props.username} ({this.props.userID})! </h1>
 
           <Link to={"/form/new"}>
             <Button className="btn btn-primary mt-2 mb-2">Create New Form</Button>

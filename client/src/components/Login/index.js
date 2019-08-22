@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import APIUser from "./../../util/user/API";
-import { Redirect, Link } from "react-router-dom";
 
 import { Input } from "./../Input"
 import { Button } from "./../Button"
@@ -32,13 +31,7 @@ class Login extends Component {
       .then(res => {
         console.log("Logged in")
         console.log("response: " + res.data.id)
-        // this.setState({
-        //   username: "",
-        //   password: "",
-        //   id: res.data.id
-        // });
         this.props.updateUser({
-          loggedIn: true,
           username: res.data.username,
           id: res.data.id
         })
@@ -51,36 +44,32 @@ class Login extends Component {
   }
 
   render() {
-    // if (this.state.id) {
-    //   return <Redirect to={{ pathname: "/dashboard/"}} />
-    // } else {
-      return(
-        <div className="col-6">
-          <h3>or Login</h3>
-          <Input 
-            value={this.state.username}
-            onChange={this.handleInputChange}
-            name="username"
-            placeholder="Enter your username"
-          />
+    return(
+      <div className="col-6">
+        <h3>or Login</h3>
+        <Input 
+          value={this.state.username}
+          onChange={this.handleInputChange}
+          name="username"
+          placeholder="Enter your username"
+        />
 
-          <Input 
-            value={this.state.password}
-            onChange={this.handleInputChange}
-            name="password"
-            placeholder="Enter your password"
-            type="password"
-          />
+        <Input 
+          value={this.state.password}
+          onChange={this.handleInputChange}
+          name="password"
+          placeholder="Enter your password"
+          type="password"
+        />
 
-              <Button
-                className="btn btn-primary"
-                onClick={this.handleFormSubmit}
-              >
-                Submit Form
-              </Button>
-        </div>
-      );
-  //   };
+        <Button
+          className="btn btn-primary"
+          onClick={this.handleFormSubmit}
+        >
+          Submit Form
+        </Button>
+      </div>
+    );
   };
 };
 
