@@ -11,8 +11,9 @@ router.post("/add", (req, res) => {
 })
 
 router.post("/findall", (req, res) => {
+  console.log("Find forms: " + req.body.id)
   if (req.body.id) {
-    db.FormTemplate.find({$or: [{form_owner: req.body.id}, {form_borrower: req.body.id}]})
+    db.FormTemplate.find({form_owner: req.body.id})
       .then(foundTemplateForms => {
         db.FormCompleted.find({form_owner: req.body.id})
           .then(foundCompletedForms => {
@@ -33,7 +34,7 @@ router.post("/findall", (req, res) => {
 })
 
 router.post("/findone", (req, res) => {
-  db.FormTemplate.find({id: {$oid: req.body.id}})
+  db.FormTemplate.findById(req.body.id)
     .then(formData => {
       // console.log(formData)
       res.send(formData)
@@ -49,11 +50,11 @@ router.post("/readone", (req, res) => {
 
 router.post("/createnew", (req, res) => {
   db.FormTemplate.create(req.body)
+  console.log(req.body)
 })
 
 router.post("/complete", (req, res) => {
   db.FormCompleted.create(req.body)
-  console.log(req.body)
 })
   
 
