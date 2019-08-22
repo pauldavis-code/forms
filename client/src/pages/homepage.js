@@ -3,8 +3,6 @@ import React, { Component } from "react";
 import Signup from "../components/Signup";
 import Login from "../components/Login";
 
-import APIUser from "./../util/user/API";
-
 class Homepage extends Component {
   constructor(props) {
     super(props)
@@ -13,8 +11,10 @@ class Homepage extends Component {
     }
   }
 
+  componentDidMount() {
+  }
+
   render() {
-    console.log("render")
 
       return(
         <div>

@@ -130,7 +130,7 @@ class FormCreate extends Component {
           return ( 
             <div key={"container" + i}>              
               <X index={i} removeField={this.removeField}/>
-              <Input text={field.input.text} type={this.props.type} key={"Input-" + i}/>
+              <Input text={field.input.text} type="fill" key={"Input-" + i}/>
             </div> );
         case '["bubble_select"]':
           console.log(field)

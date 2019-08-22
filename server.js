@@ -19,12 +19,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/forms");
 // Passport and Session
 const passport = require("passport")
 const session = require("express-session");
-const cookieParser = require("cookie-parser");
-const cookieSession = require("cookie-session")
-app.use(cookieSession({
-  secret: 'secret-key-you-dont-tell-the-client',
-  signed: true,
-}));
+const jwt = require("jsonwebtoken")
 app.use(
   session({
     secret: "terrible-string",

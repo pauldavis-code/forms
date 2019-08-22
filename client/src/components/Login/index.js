@@ -32,16 +32,18 @@ class Login extends Component {
       .then(res => {
         console.log("Logged in")
         console.log("response: " + res.data.id)
-        this.setState({
-          username: "",
-          password: "",
-          id: res.data.id
-        });
+        // this.setState({
+        //   username: "",
+        //   password: "",
+        //   id: res.data.id
+        // });
         this.props.updateUser({
           loggedIn: true,
           username: res.data.username,
           id: res.data.id
         })
+        console.log(res.data.id)
+        window.location.href = "/dashboard"
       }).catch(error => {
         return console.log("log in error: " + error)
       })
@@ -70,19 +72,16 @@ class Login extends Component {
             type="password"
           />
 
-            <Link to="/dashboard">
               <Button
                 className="btn btn-primary"
-                type="submit" 
                 onClick={this.handleFormSubmit}
               >
                 Submit Form
               </Button>
-            </Link>
         </div>
       );
-    };
-  // };
+  //   };
+  };
 };
 
 export default Login;

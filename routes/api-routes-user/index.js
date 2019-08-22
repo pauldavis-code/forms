@@ -25,8 +25,7 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
     username: req.user.username,
     id: req.user._id
   }
-  req.session.cookie.username = req.user.username
-  console.log("COOKIE: " + req.session.cookie)
+  console.log(req.session)
   console.log("user info: " + userInfo.id)
   res.send(userInfo)
 });
@@ -42,11 +41,14 @@ router.post('/logout', (req, res) => {
 
 router.get('/find', (req, res, next) => {
   // console.log('===== user!!======')
-  // console.log(req.user)
-  if (req.user) {
-      res.json({ user: req.user })
+  console.log("req.user: " + req.user)
+  if (req.user !== undefined) {
+    console.log("authenticated")
+    res.status(200)
+    res.json({user: req.user})
   } else {
-      res.json({ user: null })
+    res.status(401).send()
+    console.log("not authenticated")
   }
 });
 

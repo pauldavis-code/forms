@@ -1,53 +1,28 @@
 import React, { Component } from "react";
-import { Link, Redirect} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Card } from "./../components/Card"
 import { Button } from "./../components/Button"
 
-import APIUser from "./../util/user/API"
 import APIForms from "./../util/forms/API"
+import APIUser from "./../util/user/API"
 
 class Dashboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      id: null,
-      username: null,
       templateForms: null,
-      isLoggedIn: false,
       selectedForm: null,
       completedForms: null
     }
   }
-
+  
   componentDidMount() {
-    if (!this.state.isLoggedIn) {
-      this.getUser()
-    } else {
-      return <Redirect to="/" />
-    }
-  }
-
-  getUser = () => {
-    APIUser.getUser()
-    .then(res => {
-      if (res.data.user) {
-        console.log('Get User: There is a user saved in the server session: ')
-        // console.log(res.data.user)
-        this.setState({
-          isLoggedIn: true,
-          id: res.data.user._id,
-          username: res.data.user.username
-        })
-        this.findForms(this.state.id)
-      } else {
-        console.log('Get user: no user');
-      }
-    })
+    this.findForms(this.props.id)
   }
   
-  findForms = (id) => {
-    APIForms.findUsersForms({id: id})
+  findForms = () => {
+    APIForms.findUsersForms({id: this.props.id})
     .then(res => {
       this.setState({
         templateForms: res.data.templates,
@@ -69,11 +44,9 @@ class Dashboard extends Component {
         <a key={forms._id} href={"/read/" + forms._id}><h5>{forms.form_title}</h5></a>
       )})
     ) : null
-    console.log(this.props.isLoggedIn)
-    // if (this.props.isLoggedIn) {
       return(
         <div>
-          <h1> hello, {this.state.username} ({this.state.id})! </h1>
+          <h1> hello, {this.props.username} ({this.props.id})! </h1>
 
           <Link to={"/form/new"}>
             <Button className="btn btn-primary mt-2 mb-2">Create New Form</Button>
@@ -92,9 +65,6 @@ class Dashboard extends Component {
 
           </div>
         </div> )
-    // } else {
-    //   return <Redirect to="/" />
-    // }
   }
 }
 
