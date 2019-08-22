@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 
@@ -19,10 +19,11 @@ class App extends Component {
       username: null,
       id: null
     };
+    this.getUser()
   };
 
   componentDidMount() {
-    this.getUser()
+    // this.getUser()
   }
 
   getUser() {
@@ -53,32 +54,36 @@ class App extends Component {
   }
 
   render() {
-      return (
-        <div>
-          <Navbar state={this.state.isLoggedIn} updateUser={this.updateUser}/>
-          <div className="container-fluid">
-            <Switch>
-              <Route 
-                exact path="/"
-                render={ (props) => <Homepage isLoggedIn={this.state.isLoggedIn} updateUser={this.updateUser} id={this.state.id}/>} 
-              />
-              <Route 
-                exact path="/dashboard/"
-                render={ () => <Dashboard isLoggedIn={this.state.isLoggedIn} /> }
-              />
-              <Route 
-                exact path="/form/new"
-                render={(props) => <FormCreate id={this.state.id}/>}
-              />
-              <Route 
-                exact path="/form/:id"
-                render={(props) => <FormDisplay id={props.match.params.id}/>}
-              />
-            </Switch>
-          </div>
+    return (
+      <div>
+        <Navbar state={this.state.isLoggedIn} updateUser={this.updateUser}/>
+        <div className="container-fluid">
+          <Switch>
+            <Route 
+              exact path="/"
+              render={ (props) => <Homepage isLoggedIn={this.state.isLoggedIn} updateUser={this.updateUser} id={this.state.id}/>} 
+            />
+            <Route 
+              exact path="/dashboard/"
+              render={ () => this.checkUser ? <Dashboard isLoggedIn={this.state.isLoggedIn} /> : <Redirect to="/" /> }
+            />
+            <Route 
+              exact path="/form/new"
+              render={(props) => <FormCreate id={this.state.id} type={"fill"}/>}
+            />
+            <Route 
+              exact path="/form/:id"
+              render={(props) => <FormDisplay id={props.match.params.id} type={"fill"}/>}
+            />
+            <Route 
+              exact path="/read/:id"
+              render={(props) => <FormDisplay id={props.match.params.id} type={"read"}/>}
+            />
+          </Switch>
         </div>
-      );
-    }
+      </div>
+    );
+  }
 }
 
 export default App;

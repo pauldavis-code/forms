@@ -71,7 +71,10 @@ class FormCreate extends Component {
           }
         }
         break;
+      default:
+        console.log("no match")
       }
+    
 
     form.push(field)
     this.setState({
@@ -102,7 +105,6 @@ class FormCreate extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    let id = this.props.id
     APIForms.createNewForm({
       form_title: this.state.formTitle,
       form_contents: this.state.form,
@@ -128,7 +130,7 @@ class FormCreate extends Component {
           return ( 
             <div key={"container" + i}>              
               <X index={i} removeField={this.removeField}/>
-              <Input text={field.input.text} key={"Input-" + i}/>
+              <Input text={field.input.text} type={this.props.type} key={"Input-" + i}/>
             </div> );
         case '["bubble_select"]':
           console.log(field)

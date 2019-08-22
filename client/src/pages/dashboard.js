@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect} from "react-router-dom";
 
 import { Card } from "./../components/Card"
 import { Button } from "./../components/Button"
@@ -23,6 +23,8 @@ class Dashboard extends Component {
   componentDidMount() {
     if (!this.state.isLoggedIn) {
       this.getUser()
+    } else {
+      return <Redirect to="/" />
     }
   }
 
@@ -63,33 +65,36 @@ class Dashboard extends Component {
     })) : null
 
     let completed = this.state.completedForms ? (
-      this.state.completedForms.map(forms => { console.log(forms.form_title)
-        return (
-        <h4>{forms.form_title}</h4>
+      this.state.completedForms.map(forms => { return (
+        <a key={forms._id} href={"/read/" + forms._id}><h5>{forms.form_title}</h5></a>
       )})
     ) : null
+    console.log(this.props.isLoggedIn)
+    // if (this.props.isLoggedIn) {
+      return(
+        <div>
+          <h1> hello, {this.state.username} ({this.state.id})! </h1>
 
-    return(
-      <div>
-        <h1> hello, {this.state.username} ({this.state.id})! </h1>
+          <Link to={"/form/new"}>
+            <Button className="btn btn-primary mt-2 mb-2">Create New Form</Button>
+          </Link>
 
-        <Link to={"/form/new"}>
-          <Button className="btn btn-primary mt-2 mb-2">Create New Form</Button>
-        </Link>
+          <div className="row">
+            <div className="col-md-8">
+              <h2>Templated forms</h2>
+              {templates}
+            </div>
 
-        <div className="row">
-          <div className="col-md-8">
-            <h2>Templated forms</h2>
-            {templates}
+            <div className="col-md-4">
+              <h2>completed forms</h2>
+              {completed}
+            </div>
+
           </div>
-
-          <div className="col-md-4">
-            <h2>completed forms</h2>
-            {completed}
-          </div>
-
-        </div>
-      </div> )
+        </div> )
+    // } else {
+    //   return <Redirect to="/" />
+    // }
   }
 }
 

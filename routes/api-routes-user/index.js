@@ -25,6 +25,8 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
     username: req.user.username,
     id: req.user._id
   }
+  req.session.cookie.username = req.user.username
+  console.log("COOKIE: " + req.session.cookie)
   console.log("user info: " + userInfo.id)
   res.send(userInfo)
 });

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import APIUser from "./../../util/user/API";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 import { Input } from "./../Input"
 import { Button } from "./../Button"
@@ -49,9 +49,9 @@ class Login extends Component {
   }
 
   render() {
-    if (this.state.id) {
-      return <Redirect to={{ pathname: "/dashboard/"}} />
-    } else {
+    // if (this.state.id) {
+    //   return <Redirect to={{ pathname: "/dashboard/"}} />
+    // } else {
       return(
         <div className="col-6">
           <h3>or Login</h3>
@@ -70,17 +70,19 @@ class Login extends Component {
             type="password"
           />
 
-            <Button
-              className="btn btn-primary"
-              type="submit" 
-              onClick={this.handleFormSubmit}
-            >
-              Submit Form
-            </Button>
+            <Link to="/dashboard">
+              <Button
+                className="btn btn-primary"
+                type="submit" 
+                onClick={this.handleFormSubmit}
+              >
+                Submit Form
+              </Button>
+            </Link>
         </div>
       );
     };
-  };
+  // };
 };
 
 export default Login;

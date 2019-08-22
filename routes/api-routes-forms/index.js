@@ -29,7 +29,7 @@ router.post("/findall", (req, res) => {
             res.json(usersFoundForms)
           })
       })
-  }
+    }
 })
 
 router.post("/findone", (req, res) => {
@@ -40,14 +40,19 @@ router.post("/findone", (req, res) => {
     })
 })
 
+router.post("/readone", (req, res) => {
+  db.FormCompleted.findById(req.body.id)
+    .then(formData => {
+      res.send(formData)
+    })
+})
+
 router.post("/createnew", (req, res) => {
-  db.FormTemplate
-    .create(req.body)
+  db.FormTemplate.create(req.body)
 })
 
 router.post("/complete", (req, res) => {
-  db.FormCompleted
-    .create(req.body)
+  db.FormCompleted.create(req.body)
   console.log(req.body)
 })
   

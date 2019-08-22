@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 
 import Signup from "../components/Signup";
-import Login from "../components/Login"
+import Login from "../components/Login";
+
+import APIUser from "./../util/user/API";
 
 class Homepage extends Component {
   constructor(props) {
@@ -10,7 +11,6 @@ class Homepage extends Component {
     this.state = {
       isLoggedIn: this.props.isLoggedIn
     }
-    console.log(this.state.isLoggedIn)
   }
 
   render() {

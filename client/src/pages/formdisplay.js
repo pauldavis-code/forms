@@ -22,7 +22,20 @@ class FormDisplay extends Component {
   }
 
   fetchForm = (formID) => {
-    APIForms.findOneForm({id: formID})
+    if (this.props.type === "fill") {
+      APIForms.findOneForm({id: formID})
+        .then(res => {
+          // console.log(res.data)
+          this.setState({
+            form: {
+              title: res.data.form_title,
+              contents: res.data.form_contents,
+              owner: res.data.form_owner
+            }
+          })
+        })
+    } else {
+      APIForms.readOneForm({id: formID})
       .then(res => {
         console.log(res.data)
         this.setState({
@@ -30,9 +43,11 @@ class FormDisplay extends Component {
             title: res.data.form_title,
             contents: res.data.form_contents,
             owner: res.data.form_owner
-          }
+          },
+          inputs: res.data.form_inputs
         })
       })
+    }
   }
 
   handleInputChange = (userInput, key) => {
@@ -56,7 +71,6 @@ class FormDisplay extends Component {
   render() {
     return(
       <div>
-
         {this.state.form ? <h1>{this.state.form.title}</h1> : <h1>No title</h1>}
 
         { this.state.form ?
@@ -65,13 +79,13 @@ class FormDisplay extends Component {
             case '["sub_heading"]':
               return <Subheading text={field.sub_heading.text} key={i}/>;
             case '["input"]':
-              return <Input text={field.input.text} key={i} id={i} onChange={this.handleInputChange}/>;
+              return <Input type={this.props.type} text={field.input.text} inputs={this.state.inputs} key={i} id={i} onChange={this.handleInputChange}/>;
             case '["bubble_select"]':
-              return <BubbleSelect contents={field.bubble_select} key={i} set={i}/>
+              return <BubbleSelect type={this.props.type} contents={field.bubble_select} key={i} set={i}/>
             default: 
               console.log("none")
             }
-          }) : console.log() }
+          }): console.log() }
 
           <Button className="btn btn-primary mt-2" onClick={this.handleFormSubmit}>Submit</Button>
       </div>
