@@ -41,12 +41,11 @@ router.post('/logout', (req, res) => {
 
 router.get('/find', (req, res, next) => {
   // console.log('===== user!!======')
-  console.log("req.user: " + req.user._id)
+  console.log("req.user: " + typeof req.user._id)
   if (req.user !== undefined) {
     console.log("authenticated")
     res.status(200)
     res.json({user: req.user})
-    console.log("res sent")
   } else {
     res.status(401).send()
     console.log("not authenticated")
