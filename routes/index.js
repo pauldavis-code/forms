@@ -10,7 +10,7 @@ router.use("/api/users", apiRoutesUser)
 router.use("/api/forms", apiRoutesForms)
 
 router.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  res.sendFile(path.join(__dirname, "./client/build", "index.html"));
 })
 
 module.exports = router;
