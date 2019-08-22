@@ -19,7 +19,6 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/forms");
 // Passport and Session
 const passport = require("passport")
 const session = require("express-session");
-const jwt = require("jsonwebtoken")
 app.use(
   session({
     secret: "terrible-string",

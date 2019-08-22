@@ -13,6 +13,7 @@ import { BubbleSelect } from "./../components/BubbleSelect";
 import { X } from "./../components/x";
 
 import APIForms from "./../util/forms/API";
+import APIUser from "./../util/user/API"
 
 class FormCreate extends Component {
   constructor(props) {
@@ -105,14 +106,17 @@ class FormCreate extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    APIForms.createNewForm({
-      form_title: this.state.formTitle,
-      form_contents: this.state.form,
-      form_owner: this.props.id
-    })
-    .then(res => {
-      console.log(res)
-    })
+    APIUser.getUser()
+      .then(res => {
+        APIForms.createNewForm({
+          form_title: this.state.formTitle,
+          form_contents: this.state.form,
+          form_owner: res.data.user._id
+        })
+        .then(res => {
+          console.log(res)
+        })
+      })
   }
 
   render() {
@@ -137,7 +141,7 @@ class FormCreate extends Component {
           return (
             <div key={"container" + i}>
               <X index={i} removeField={this.removeField}/>
-              <BubbleSelect contents={field.bubble_select} set={i} />
+              <BubbleSelect type="input" inputs="input" contents={field.bubble_select} set={i} />
             </div> );
         default: 
           console.log("none")
