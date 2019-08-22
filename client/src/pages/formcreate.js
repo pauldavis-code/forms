@@ -38,7 +38,7 @@ class FormCreate extends Component {
         this.setState({
           userID: res.data.user._id
         })
-        console.log(this.state.userID)
+        console.log(typeof this.state.userID)
       })
   }
 
@@ -119,14 +119,14 @@ class FormCreate extends Component {
   handleFormSubmit = event => {
     console.log("submitting form")
     event.preventDefault();
-      APIForms.createNewForm({
-        form_title: this.state.formTitle,
-        form_contents: this.state.form,
-        form_owner: this.state.userID
-      })
-      .then(res => {
-      })
-      .catch(err => console.log(err))
+      // APIForms.createNewForm({
+      //   form_title: this.state.formTitle,
+      //   form_contents: this.state.form,
+      //   form_owner: this.state.userID
+      // })
+      // .then(res => {
+      // })
+      // .catch(err => console.log(err))
   }
 
   render() {
