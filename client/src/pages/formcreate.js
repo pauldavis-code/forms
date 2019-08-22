@@ -118,7 +118,7 @@ class FormCreate extends Component {
   }
 
   handleFormSubmit = event => {
-    console.log("submitting form")
+    console.log("submit")
     event.preventDefault();
       APIForms.createNewForm({
         form_title: this.state.formTitle,
