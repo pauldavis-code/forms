@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 
 import Signup from "../components/Signup";
-import Login from "../components/Login"
+import Login from "../components/Login";
 
 class Homepage extends Component {
   constructor(props) {
@@ -10,11 +9,12 @@ class Homepage extends Component {
     this.state = {
       isLoggedIn: this.props.isLoggedIn
     }
-    console.log(this.state.isLoggedIn)
+  }
+
+  componentDidMount() {
   }
 
   render() {
-    console.log("render")
 
       return(
         <div>

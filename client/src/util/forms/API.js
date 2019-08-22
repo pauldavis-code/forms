@@ -7,6 +7,9 @@ export default {
   findOneForm: function(formID) {
     return axios.post("/api/forms/findone", formID)
   },
+  readOneForm: function(formID) {
+    return axios.post("/api/forms/readone", formID)
+  },
   createNewForm: function(form) {
     return axios.post("/api/forms/createnew", form)
   },
