@@ -107,6 +107,7 @@ class FormCreate extends Component {
   }
 
   handleFormSubmit = event => {
+    console.log("submitting form")
     event.preventDefault();
     APIUser.getUser()
       .then(res => {

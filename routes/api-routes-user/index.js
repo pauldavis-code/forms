@@ -46,6 +46,7 @@ router.get('/find', (req, res, next) => {
     console.log("authenticated")
     res.status(200)
     res.json({user: req.user})
+    console.log("res sent")
   } else {
     res.status(401).send()
     console.log("not authenticated")
