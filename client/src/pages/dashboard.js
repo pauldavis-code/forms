@@ -6,6 +6,8 @@ import { Button } from "./../components/Button"
 
 import APIForms from "./../util/forms/API"
 
+const ObjectID = require("mongodb")
+
 class Dashboard extends Component {
   constructor(props) {
     super(props)
