@@ -31,7 +31,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar state={this.state.isLoggedIn} updateUser={this.updateUser}/>
+        <Navbar id={this.state.id} updateUser={this.updateUser}/>
         <div className="row">
           <div className="col-2 sides"></div>
           <div className="col-md-8">

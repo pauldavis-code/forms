@@ -2,20 +2,16 @@ import React, { Component } from "react";
 
 import axios from "axios";
 
+import APIUser from "./../../util/user/API"
+
 
 class Navbar extends Component {
   // constructor(props) {
   //   super(props)
   // }
 
-  componentWillReceiveProps() {
-    this.logOutButton()
-  }
 
   logOutButton = ()  => {
-    if (this.props.state) {
-      return <button type="button" className="btn btn-primary float-right" onClick={this.logout}>Log Out</button>
-    }
   }
 
   logout = (event) => {
@@ -38,11 +34,25 @@ class Navbar extends Component {
 
 
   render() {
-    if (this.props)
+
+    let loggedIn = null
+    let button
+    APIUser.getUser()
+      .then(res => {
+        if (res.data.user._id) {
+          console.log("is logged in")
+          loggedIn = true
+        }
+        if (loggedIn) {
+          console.log("yes")
+          button = <h1>hi!</h1>
+      }
+    })
+
     return(
       <nav className="navbar navbar-dark bg-dark">
         <span className="navbar-brand mb-0 h1">form(e)</span>
-        {this.logOutButton()}
+        {button}
       </nav>
     )
   }

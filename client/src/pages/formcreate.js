@@ -15,8 +15,6 @@ import { X } from "./../components/x";
 import APIForms from "./../util/forms/API";
 import APIUser from "./../util/user/API"
 
-const ObjectID = require("mongodb").ObjectID
-
 class FormCreate extends Component {
   constructor(props) {
     super(props);
